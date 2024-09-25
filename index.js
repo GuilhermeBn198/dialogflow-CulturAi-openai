@@ -16,9 +16,8 @@ const geminiApiKey = process.env.GEMINI_API_KEY;
 app.post('/webhook', async (req, res) => {
   try {
     const dialogflowRequest = req.body;
-    console.log(dialogflowRequest)
     const userInput = dialogflowRequest.queryResult.parameters.text;
-    console.log(userInput);
+    console.log(userInput)
 
     // Defina a LLM a ser usada (OpenAI ou Gemini)
     const aiChoice = 'openai'; // ou 'gemini', conforme preferir
@@ -47,8 +46,9 @@ async function getResponseFromOpenAI(prompt) {
   const response = await axios.post(
     openaiUrl,
     {
-      model: 'gpt-4',
-      messages: [{ role: 'user', content: prompt }],
+      model: 'gpt-3.5-turbo',
+      messages: [{ role: 'user', content: "Responda como se estivesse em uma conversa com um agricultor sobre: "+prompt+" e mantenha parágrafos curtos, com no máximo 3 linhas. Os tópicos são, informações nutricionais(indices de vitaminas base, ferro, calcio, etc), Receitas Culinárias(até 2 receitas) e possíveis propriedades medicinais."}],
+      max_tokens: 300,
     },
     {
       headers: {
@@ -57,6 +57,8 @@ async function getResponseFromOpenAI(prompt) {
       },
     }
   );
+  console.log(response.data.choices);
+  
   return response.data.choices[0].message.content;
 }
 
