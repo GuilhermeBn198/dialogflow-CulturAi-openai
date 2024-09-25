@@ -1,6 +1,6 @@
 # dialogflow-CulturAi-openai
 
-servidor de interligação das requisições dos intents do projeto culturAi
+servidor de interligação das requisições dos intents do projeto culturAi com foco em atender necessidades de prover informações para agricultores de zonas rurais com foco em frutas, vegetais e ervas.
 
 ## instalação
 
